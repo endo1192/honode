@@ -32,8 +32,17 @@ app.use('*', cors({
       throw new Error('BASE_URL is not defined');
     }
 
+    const allowedOrigins = [
+      BASE_URL, 
+      `${BASE_URL}/PageAbout`, 
+      `${BASE_URL}/PageSkills`, 
+      `${BASE_URL}/PageWorks`,
+      `${BASE_URL}/PageToi`,
+      // 必要に応じて他のパスを追加
+    ];
+
     // BASE_URLまたはそのサブパスからのアクセスを許可
-    if (origin === BASE_URL || origin.startsWith(`${BASE_URL}/`)) {
+    if (origin === BASE_URL || allowedOrigins.includes(origin) || origin.startsWith(`${BASE_URL}/`)) {
       return origin; // 許可
     }
 
