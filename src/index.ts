@@ -22,13 +22,24 @@ const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
-if (!BASE_URL) {
-  throw new Error('BASE_URL is not defined');
-}
+
 
 // CORS設定
 app.use('*', cors({
-  origin: BASE_URL, // 許可するオリジン。具体的なURLを指定することも可能
+  origin: (origin, c) => {
+    
+    if (!BASE_URL) {
+      throw new Error('BASE_URL is not defined');
+    }
+
+    // BASE_URLまたはそのサブパスからのアクセスを許可
+    if (origin === BASE_URL || origin.startsWith(`${BASE_URL}/`)) {
+      return origin; // 許可
+    }
+
+    
+    return null; // CORSエラーを返す
+  },
   allowMethods: ['GET', 'POST', 'OPTIONS'], // 許可するHTTPメソッド
   allowHeaders: ['Content-Type', 'Authorization'], // 許可するヘッダー
 }));
