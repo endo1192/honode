@@ -63,7 +63,7 @@ app.options('*', (c) => {
 //})
 
 // Notionのページ情報を取得するエンドポイント
-app.get('/page/:id', async (c) => {
+app.get('/api/page/:id', async (c) => {
   const id = c.req.param('id');
   try {
     const page = await notion.pages.retrieve({ page_id: id });
@@ -75,7 +75,7 @@ app.get('/page/:id', async (c) => {
 });
 
 // Notionのブロック情報を取得するエンドポイント
-app.get('/blocks/:id', async (c) => {
+app.get('/api/blocks/:id', async (c) => {
   const id = c.req.param('id');
   try {
     const blocks = [];
@@ -102,7 +102,7 @@ app.get('/blocks/:id', async (c) => {
   }
 });
 
-app.get('/events', async (c) => {
+app.get('/api/events', async (c) => {
   //const API_KEY = process.env.GOOGLE_API_KEY;
   //const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
   //const API_KEY = process.env.GOOGLE_API_KEY || "YOUR_API_KEY";
@@ -121,7 +121,7 @@ app.get('/events', async (c) => {
   }
 });
 
-app.post('/mailform', async (c) => {
+app.post('/api/mailform', async (c) => {
   try {
     const { firstName, lastName, question } = await c.req.json();
 
