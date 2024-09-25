@@ -10,6 +10,7 @@ import { Client } from '@notionhq/client';
 // 環境変数の読み込み
 config();
 
+
 const API_KEY = process.env.GOOGLE_API_KEY;
 const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
 const BASE_URL = process.env.PUBLIC_BASE_URL;
