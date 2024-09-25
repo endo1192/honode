@@ -2,7 +2,7 @@
   "name": "honode",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "start": "bun run index.ts"
+    "start": "bun run src/index.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.1",
