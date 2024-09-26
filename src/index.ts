@@ -5,6 +5,8 @@ import { cors } from 'hono/cors';
 import { config } from 'dotenv';
 import nodemailer from 'nodemailer';
 import { Client } from '@notionhq/client';
+import fetch from 'node-fetch'; // 追加
+
 
 
 
