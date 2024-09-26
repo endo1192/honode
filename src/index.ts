@@ -15,6 +15,7 @@ config();
 const API_KEY = process.env.GOOGLE_API_KEY;
 const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
 const BASE_URL = process.env.PUBLIC_BASE_URL;
+const MY_URL = process.env.MY_HONO_URL;
 
 const app = new Hono()
 
@@ -33,6 +34,7 @@ app.use('*', cors({
     }
 
     const allowedOrigins = [
+      MY_URL,
       BASE_URL, 
       `${BASE_URL}/PageAbout`, 
       `${BASE_URL}/PageSkills`, 
@@ -42,7 +44,7 @@ app.use('*', cors({
     ];
 
     // BASE_URLまたはそのサブパスからのアクセスを許可
-    if (origin === BASE_URL || allowedOrigins.includes(origin) || origin.startsWith(`${BASE_URL}/`)) {
+    if (origin === BASE_URL || allowedOrigins.includes(origin) || origin.startsWith(`${BASE_URL}/`) || origin === MY_URL) {
       return origin; // 許可
     }
 
