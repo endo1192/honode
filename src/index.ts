@@ -23,34 +23,31 @@ const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
-
+const allowedOrigins = [
+  MY_URL,
+  BASE_URL, 
+  `${BASE_URL}/PageAbout`, 
+  `${BASE_URL}/PageSkills`, 
+  `${BASE_URL}/PageWorks`,
+  `${BASE_URL}/PageToi`,
+  // 必要に応じて他のパスを追加
+];
 
 // CORS設定
 app.use('*', cors({
-  origin: (origin, c) => {
+  origin: (origin) => {
     
     if (!BASE_URL) {
       throw new Error('BASE_URL is not defined');
     }
 
-    const allowedOrigins = [
-      MY_URL,
-      BASE_URL, 
-      `${BASE_URL}/PageAbout`, 
-      `${BASE_URL}/PageSkills`, 
-      `${BASE_URL}/PageWorks`,
-      `${BASE_URL}/PageToi`,
-      // 必要に応じて他のパスを追加
-    ];
-
-    // BASE_URLまたはそのサブパスからのアクセスを許可
-    if (origin === BASE_URL || allowedOrigins.includes(origin) || origin.startsWith(`${BASE_URL}/`) || origin === MY_URL) {
-      return origin; // 許可
+    if (allowedOrigins.includes(origin)) {
+      return origin; // 許可されたオリジン
     }
+    return null; // 不許可
 
-    
-    return null; // CORSエラーを返す
   },
+  
   allowMethods: ['GET', 'POST', 'OPTIONS'], // 許可するHTTPメソッド
   allowHeaders: ['Content-Type', 'Authorization'], // 許可するヘッダー
 }));
