@@ -7,7 +7,7 @@ import nodemailer from 'nodemailer';
 import { Client } from '@notionhq/client';
 
 
-// 環境変数の読み込み
+
 config();
 
 
@@ -23,20 +23,11 @@ const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
-/*const allowedOrigins = [
-  MY_URL,
-  BASE_URL, 
-  `${BASE_URL}/PageAbout`, 
-  `${BASE_URL}/PageSkills`, 
-  `${BASE_URL}/PageWorks`,
-  `${BASE_URL}/PageToi`,
-  // 必要に応じて他のパスを追加
-];*/
 
-// CORS設定
+
 app.use('*', cors({
   origin: '*',
-  allowMethods: ['GET', 'POST', 'OPTIONS'], // 許可するHTTPメソッド
+  allowMethods: ['GET', 'POST', 'OPTIONS'], 
   allowHeaders: ['Content-Type', 'Authorization'], // 許可するヘッダー
 }));
 
@@ -49,8 +40,8 @@ app.options('*', (c) => {
  // return c.text('Hello Hono!')
 //})
 
-// Notionのページ情報を取得するエンドポイント
-app.get('/api/page/:id', async (c) => {
+
+app.get('/page/:id', async (c) => {
   const id = c.req.param('id');
   try {
     const page = await notion.pages.retrieve({ page_id: id });
@@ -61,8 +52,8 @@ app.get('/api/page/:id', async (c) => {
   }
 });
 
-// Notionのブロック情報を取得するエンドポイント
-app.get('/api/blocks/:id', async (c) => {
+
+app.get('/blocks/:id', async (c) => {
   const id = c.req.param('id');
   try {
     const blocks = [];
@@ -89,7 +80,7 @@ app.get('/api/blocks/:id', async (c) => {
   }
 });
 
-app.get('/api/events', async (c) => {
+app.get('/events', async (c) => {
   //const API_KEY = process.env.GOOGLE_API_KEY;
   //const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
   //const API_KEY = process.env.GOOGLE_API_KEY || "YOUR_API_KEY";
@@ -99,16 +90,16 @@ app.get('/api/events', async (c) => {
   try {
     const response = await fetch(API_URL);
 
-    // fetchのレスポンスがJSONであることを仮定して型を明示的に指定
-    const data: any = await response.json(); // ここでany型を使用
+    
+    const data: any = await response.json(); 
 
-    return c.json(data); // 型を合わせて返す
+    return c.json(data); 
   } catch (error) {
     return c.json({ error: 'Failed to fetch events' }, 500);
   }
 });
 
-app.post('/api/mailform', async (c) => {
+app.post('/mailform', async (c) => {
   try {
     const { firstName, lastName, question } = await c.req.json();
 
@@ -141,7 +132,7 @@ app.post('/api/mailform', async (c) => {
     console.log('Email sent successfully');
     return c.text('Form received and email sent');
   } catch (error) {
-    // 型ガードを使ってエラーを絞り込む
+    
     if (error instanceof Error) {
       console.error('Error in /mailform:', error.message);
       return c.text(`Failed to send email: ${error.message}`, 500);
