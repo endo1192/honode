@@ -25,11 +25,14 @@ const notion = new Client({
 
 
 
-app.use('*', cors({
+/*app.use('*', cors({
   origin: '*',
   allowMethods: ['GET', 'POST', 'OPTIONS'], 
   allowHeaders: ['Content-Type', 'Authorization'], // 許可するヘッダー
-}));
+}));*/
+
+app.use('*', cors());
+
 
 app.options('*', (c) => {
   console.log('CORS preflight request received');
