@@ -7,22 +7,20 @@ import nodemailer from 'nodemailer';
 import { Client } from '@notionhq/client';
 import fetch from 'node-fetch'; // 追加
 
-
-
-
 config();
 
 
-
-const API_KEY = process.env.GOOGLE_API_KEY;
-const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
+//const API_KEY = process.env.GOOGLE_API_KEY;
+//const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
 //const BASE_URL = process.env.PUBLIC_BASE_URL;
 //const MY_URL = process.env.MY_HONO_URL;
+const API_KEY = "AIzaSyCAcwDdG64K0FIIfflqrfbkwE4SZnMUZgY";
+const CALENDAR_ID = "0cf0c0faa753a2838be3d351e41bfc042c6c614f3dabae5936944c8c17394484@group.calendar.google.com";
 
 const app = new Hono()
 
 const notion = new Client({
-  auth: process.env.NOTION_API_KEY,
+  auth: "secret_ai4Bnq31WV7czqsOZizSlWl02X7274GpdaDSOAeTpF0",
 });
 
 
@@ -39,7 +37,7 @@ app.options('*', (c) => {
 });
 
 //app.get('/', (c) => {
- // return c.text('Hello Hono!')
+// return c.text('Hello Hono!')
 //})
 
 
